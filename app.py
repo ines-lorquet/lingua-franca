@@ -4,7 +4,6 @@ from translate import Translator
 app = Flask(__name__)
 
 LANGUAGES = {
-    'auto': 'Détection automatique',
     'en': 'Anglais',
     'fr': 'Français',
     'es': 'Espagnol',
@@ -14,7 +13,6 @@ LANGUAGES = {
     'nl': 'Néerlandais',
     'ru': 'Russe',
     'zh': 'Chinois',
-    'ja': 'Japonais',
     # Ajoutez d'autres langues selon vos besoins
 }
 

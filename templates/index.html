@@ -1,26 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>API de traduction</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex; /* Ajout pour le centrage */
+            justify-content: center; /* Centrage horizontal */
+            align-items: center; /* Centrage vertical */
+            min-height: 100vh; /* Hauteur minimale pour le centrage vertical */
+            margin: 0; /* Suppression des marges par défaut */
+            padding-top: 120px;
+        }
+        .container {
+            width: 100%; /* Largeur maximale */
+            max-width: 600px; /* Largeur maximale du conteneur */
+            margin: auto; /* Centrage automatique */
+            padding: 20px;
+            box-sizing: border-box; /* Inclut padding dans la largeur */
+        }
+        .panel {
+            padding: 15px;
+            background-color: #252525;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 20px; /* Espace entre les panneaux */
+        }
+        textarea, select, button {
+            width: 100%;
+            background-color: #333333;
+            color: #ffffff;
+            border: 2px solid #555;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-sizing: border-box; /* Inclut padding dans la largeur */
+        }
+        button {
+            background-color: #008CBA;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #005f73;
+        }
+        .titre {
+            width: 100%; /* Utilisez toute la largeur pour le centrage */
+            text-align: center; /* Centre le texte horizontalement */
+            color: #ffffff;
+            padding-top: 50px;
+            padding-bottom: 10px;
+            margin: 0; /* Supprime les marges par défaut */
+            position: absolute; /* Positionnement absolu */
+            top: 0; /* En haut de la page */
+            left: 0; /* Aligné à gauche */
+            z-index: 10; /* S'assure que le titre est au-dessus des autres éléments */
+        }
+    </style>
 </head>
 <body>
-    <form method="POST" action="/">
-        <textarea name="source_text" rows="4" cols="50">{{ source_text }}</textarea><br><br>
-        <select name="source_lang">
-            <option value="auto" {% if source_lang == 'auto' %}selected{% endif %}>Détection automatique</option>
-            {% for code, name in languages.items() %}
-                <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ name }}</option>
-            {% endfor %}
-        </select><br><br>
-        <textarea name="target_text" rows="4" cols="50" readonly>{{ target_text }}</textarea><br><br>
-        <select name="target_lang">
-            {% for code, name in languages.items() %}
-                <option value="{{ code }}" {% if target_lang == code %}selected{% endif %}>{{ name }}</option>
-            {% endfor %}
-        </select><br><br>
-        <input type="submit" value="Traduire">
-    </form>
+    <div class="titre">
+        <h1>Translator</h1>
+    </div>
+    <div class="container">
+        <form method="POST" action="/">
+            <div class="panel input-panel">
+                <label for="source_text">Texte source :</label>
+                <textarea id="source_text" name="source_text" rows="4" cols="50">{{ source_text }}</textarea>
+                <label for="source_lang">Langue source :</label>
+                <select id="source_lang" name="source_lang">
+                    <option value="auto" {% if source_lang == 'auto' %}selected{% endif %}>Détection automatique</option>
+                    {% for code, name in languages.items() %}
+                        <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="panel output-panel">
+                <label for="target_text">Texte cible :</label>
+                <textarea id="target_text" name="target_text" rows="4" cols="50" readonly>{{ target_text }}</textarea>
+                <label for="target_lang">Langue cible :</label>
+                <select id="target_lang" name="target_lang">
+                    {% for code, name in languages.items() %}
+                        <option value="{{ code }}" {% if target_lang == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Traduire</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
