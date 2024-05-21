@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/">
+        <textarea name="source_text" rows="4" cols="50">{{ source_text }}</textarea><br><br>
+        <select name="source_lang">
+            <option value="auto" {% if source_lang == 'auto' %}selected{% endif %}>Détection automatique</option>
+            {% for code, name in languages.items() %}
+                <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <textarea name="target_text" rows="4" cols="50" readonly>{{ target_text }}</textarea><br><br>
+        <select name="target_lang">
+            {% for code, name in languages.items() %}
+                <option value="{{ code }}" {% if target_lang == code %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Traduire">
+    </form>
+</body>
+</html>
