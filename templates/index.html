@@ -9,26 +9,26 @@
             background-color: #121212;
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; /* Ajout pour le centrage */
-            justify-content: center; /* Centrage horizontal */
-            align-items: center; /* Centrage vertical */
-            min-height: 100vh; /* Hauteur minimale pour le centrage vertical */
-            margin: 0; /* Suppression des marges par défaut */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
             padding-top: 120px;
         }
         .container {
-            width: 100%; /* Largeur maximale */
-            max-width: 600px; /* Largeur maximale du conteneur */
-            margin: auto; /* Centrage automatique */
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
             padding: 20px;
-            box-sizing: border-box; /* Inclut padding dans la largeur */
+            box-sizing: border-box;
         }
         .panel {
             padding: 15px;
             background-color: #252525;
             border: 1px solid #333;
             border-radius: 8px;
-            margin-bottom: 20px; /* Espace entre les panneaux */
+            margin-bottom: 20px;
         }
         textarea, select, button {
             width: 100%;
@@ -38,7 +38,7 @@
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 10px;
-            box-sizing: border-box; /* Inclut padding dans la largeur */
+            box-sizing: border-box;
         }
         button {
             background-color: #008CBA;
@@ -48,16 +48,20 @@
             background-color: #005f73;
         }
         .titre {
-            width: 100%; /* Utilisez toute la largeur pour le centrage */
-            text-align: center; /* Centre le texte horizontalement */
+            width: 100%;
+            text-align: center;
             color: #ffffff;
             padding-top: 50px;
             padding-bottom: 10px;
-            margin: 0; /* Supprime les marges par défaut */
-            position: absolute; /* Positionnement absolu */
-            top: 0; /* En haut de la page */
-            left: 0; /* Aligné à gauche */
-            z-index: 10; /* S'assure que le titre est au-dessus des autres éléments */
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
         }
     </style>
 </head>
@@ -90,6 +94,9 @@
                 <button type="submit">Traduire</button>
             </div>
         </form>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
     </div>
 </body>
 </html>

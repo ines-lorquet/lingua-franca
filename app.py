@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template
-from translate import Translator
+from deepl import Translator
 
 app = Flask(__name__)
 
 LANGUAGES = {
-    'en': 'Anglais',
+    'en-US': 'Anglais',
     'fr': 'Français',
     'es': 'Espagnol',
     'de': 'Allemand',
@@ -13,6 +13,8 @@ LANGUAGES = {
     'nl': 'Néerlandais',
     'ru': 'Russe',
     'zh': 'Chinois',
+    'ja': 'Japonais',  # Ajout du Japonais
+    'ko': 'Coréen',
     # Ajoutez d'autres langues selon vos besoins
 }
 
@@ -29,8 +31,11 @@ def translate_text():
             target_lang = request.form.get('target_lang')
 
             if source_text:
-                translator = Translator(to_lang=target_lang)
-                target_text = translator.translate(source_text)
+                translator = Translator('ba89e068-b6e5-498b-ac12-320d3959ad2c:fx')
+                if source_lang == 'auto':
+                    target_text = translator.translate_text(source_text, target_lang=target_lang, source_lang=None)
+                else:
+                    target_text = translator.translate_text(source_text, target_lang=target_lang, source_lang=source_lang)
             else:
                 target_text = "Erreur: le texte source ne peut pas être vide."
 
