@@ -14,18 +14,18 @@
 2 étudiants en 1ère année de Bachelor IT spécialité Intelligence Artificielle à [La Plateforme_](https://laplateforme.io/) à Marseille
 - Said Kheloufi
   <a href="https://www.linkedin.com/in/said-kheloufi/">
-    <img src="images/logos/linkedin.png" width=25>
+    <img src="images/linkedin.png" width=25>
   </a>
   <a href="https://github.com/said-kheloufi">
-    <img src="images/logos/github.png" width=25>
+    <img src="images/github.png" width=25>
   </a>
 
 - Ines Lorquet
   <a href="https://www.linkedin.com/in/ines-lorquet-35b90128b/">
-    <img src="images/logos/linkedin.png" width=25>
+    <img src="images/linkedin.png" width=25>
   </a>
   <a href="https://github.com/ines-lorquet">
-    <img src="images/logos/github.png" width=25>
+    <img src="images/github.png" width=25>
   </a>
 
 ## API
