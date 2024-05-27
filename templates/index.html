@@ -1,63 +1,52 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API de traduction</title>
+    <title>Lingua Franca</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #121212;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding-top: 120px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333333;
         }
         .container {
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            box-sizing: border-box;
+            max-width: 800px;
+            margin-top: 50px;
         }
-        .panel {
-            padding: 15px;
-            background-color: #252525;
-            border: 1px solid #333;
-            border-radius: 8px;
+        .row {
             margin-bottom: 20px;
         }
-        textarea, select, button {
+        textarea {
+            resize: none;
+            background-color: #ffffff;
+            color: #333333;
+            border: 2px solid #cccccc;
+            border-radius: 8px;
+            padding: 12px;
             width: 100%;
-            background-color: #333333;
-            color: #ffffff;
-            border: 2px solid #555;
+        }
+        select, button {
+            background-color: #ffffff;
+            color: #333333;
+            border: 2px solid #cccccc;
             border-radius: 8px;
             padding: 12px;
             margin-bottom: 10px;
+            width: 100%;
             box-sizing: border-box;
         }
         button {
             background-color: #008CBA;
+            color: #ffffff;
             font-weight: bold;
         }
         button:hover {
             background-color: #005f73;
         }
-        .titre {
-            width: 100%;
-            text-align: center;
-            color: #ffffff;
+        .text-center {
             padding-top: 50px;
-            padding-bottom: 10px;
-            margin: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
         }
         .error-message {
             color: red;
@@ -66,32 +55,50 @@
     </style>
 </head>
 <body>
-    <div class="titre">
-        <h1>Translator</h1>
-    </div>
     <div class="container">
+        <h1 class="text-center">Lingua Franca</h1>
         <form method="POST" action="/">
-            <div class="panel input-panel">
-                <label for="source_text">Texte source :</label>
-                <textarea id="source_text" name="source_text" rows="4" cols="50">{{ source_text }}</textarea>
-                <label for="source_lang">Langue source :</label>
-                <select id="source_lang" name="source_lang">
-                    <option value="auto" {% if source_lang == 'auto' %}selected{% endif %}>Détection automatique</option>
-                    {% for code, name in languages.items() %}
-                        <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ name }}</option>
-                    {% endfor %}
-                </select>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="source_text">Texte source :</label>
+                        <textarea id="source_text" name="source_text" rows="10">{{ source_text }}</textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="target_text">Texte cible :</label>
+                        <textarea id="target_text" name="target_text" rows="10" readonly>{{ target_text }}</textarea>
+                    </div>
+                </div>
             </div>
-            <div class="panel output-panel">
-                <label for="target_text">Texte cible :</label>
-                <textarea id="target_text" name="target_text" rows="4" cols="50" readonly>{{ target_text }}</textarea>
-                <label for="target_lang">Langue cible :</label>
-                <select id="target_lang" name="target_lang">
-                    {% for code, name in languages.items() %}
-                        <option value="{{ code }}" {% if target_lang == code %}selected{% endif %}>{{ name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit">Traduire</button>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="source_lang">Langue source :</label>
+                        <select id="source_lang" name="source_lang">
+                            <option value="auto" {% if source_lang == 'auto' %}selected{% endif %}>Détection automatique</option>
+                            {% for code, name in languages.items() %}
+                                <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="target_lang">Langue cible :</label>
+                        <select id="target_lang" name="target_lang">
+                            {% for code, name in languages.items() %}
+                                <option value="{{ code }}" {% if target_lang == code %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <button type="submit">Traduire</button>
+                </div>
             </div>
         </form>
         {% if error_message %}
