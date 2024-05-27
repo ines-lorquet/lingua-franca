@@ -1,83 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lingua Franca</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>API de traduction</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 120px;
         }
         .container {
-            max-width: 800px;
-            margin-top: 50px;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        .row {
+        .panel {
+            padding: 15px;
+            background-color: #252525;
+            border: 1px solid #333;
+            border-radius: 8px;
             margin-bottom: 20px;
         }
-        textarea {
-            resize: none;
+        textarea, select, button {
+            width: 100%;
+            background-color: #333333;
+            color: #ffffff;
+            border: 2px solid #555;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #008CBA;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #005f73;
+        }
+        .titre {
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            padding-top: 50px;
+            padding-bottom: 10px;
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
         }
     </style>
 </head>
 <body>
+    <div class="titre">
+        <h1>Translator</h1>
+    </div>
     <div class="container">
-        <h1 class="text-center">Lingua Franca</h1>
-        <form id="translate-form" method="post">
-            <div class="row">
-                <div class="col">
-                    <label for="input_language">Input Language:</label>
-                    <select name="input_language" id="input_language" class="form-control">
-                
-                        {% for lang in languages %}
-                            <option value="{{ lang[0] }}">{{ lang[1] }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col">
-                    <label for="output_language">Output Language:</label>
-                    <select name="output_language" id="output_language" class="form-control">
-                        {% for lang in languages %}
-                            <option value="{{ lang[0] }}">{{ lang[1] }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+        <form method="POST" action="/">
+            <div class="panel input-panel">
+                <label for="source_text">Texte source :</label>
+                <textarea id="source_text" name="source_text" rows="4" cols="50">{{ source_text }}</textarea>
+                <label for="source_lang">Langue source :</label>
+                <select id="source_lang" name="source_lang">
+                    <option value="auto" {% if source_lang == 'auto' %}selected{% endif %}>Détection automatique</option>
+                    {% for code, name in languages.items() %}
+                        <option value="{{ code }}" {% if source_lang == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="text">Enter Text:</label>
-                    <textarea name="text" id="text" class="form-control" rows="10"></textarea>
-                </div>
-                <div class="col">
-                    <label for="translation">Translation:</label>
-                    <textarea name="translation" id="translation" class="form-control" rows="10" readonly></textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center">
-                    <button type="submit" class="btn btn-primary">Translate</button>
-                </div>
+            <div class="panel output-panel">
+                <label for="target_text">Texte cible :</label>
+                <textarea id="target_text" name="target_text" rows="4" cols="50" readonly>{{ target_text }}</textarea>
+                <label for="target_lang">Langue cible :</label>
+                <select id="target_lang" name="target_lang">
+                    {% for code, name in languages.items() %}
+                        <option value="{{ code }}" {% if target_lang == code %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Traduire</button>
             </div>
         </form>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
     </div>
-
-    <script>
-    document.getElementById('translate-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        var form = event.target;
-        var formData = new FormData(form);
-
-        fetch('/translate', {
-            method: 'POST',
-            body: formData
-        }).then(function(response) {
-            return response.json();
-        }).then(function(data) {
-            document.getElementById('translation').value = data.translated_text;
-        });
-    });
-    </script>
 </body>
 </html>
