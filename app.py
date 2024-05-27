@@ -13,9 +13,8 @@ LANGUAGES = {
     'nl': 'Néerlandais',
     'ru': 'Russe',
     'zh': 'Chinois',
-    'ja': 'Japonais',  # Ajout du Japonais
+    'ja': 'Japonais',
     'ko': 'Coréen',
-    # Ajoutez d'autres langues selon vos besoins
 }
 
 @app.route('/', methods=['GET', 'POST'])
