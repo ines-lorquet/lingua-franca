@@ -35,9 +35,11 @@ Ces outils se connectent à des APIs pour automatiser des tâches et accéder à
 
 ## Contexte
 
+La traduction joue un rôle crucial dans notre monde globalisé. Avec des milliards de personnes parlant des milliers de langues différentes, la barrière linguistique est un défi majeur pour la communication internationale, les affaires, la diplomatie, l'éducation, et bien d'autres domaines. Les technologies de traduction, comme les traducteurs automatiques, permettent de surmonter ces obstacles en facilitant la compréhension et l'échange d'informations entre les cultures et les langues.
 
 
 ### Histoire
+
 L’histoire de la traduction est étroitement liée à celle de l’écriture et des langues. Au fil des siècles, les peuples ont développé des langues distinctes, et lorsque ces cultures se sont rencontrées, la nécessité de communiquer a donné naissance à des méthodes de traduction. Voici un résumé :
 
   - **Antiquité** : Les premiers exemples de traduction remontent aux civilisations anciennes, comme l’Égypte et la Mésopotamie. Les textes multilingues étaient utilisés pour le commerce et la diplomatie.
