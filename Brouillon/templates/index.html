@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Translation App</title>
+    <title>Lingua Franca</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
@@ -23,15 +23,15 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Translation App</h1>
-        <form method="post">
+        <h1 class="text-center">Lingua Franca</h1>
+        <form id="translate-form" method="post">
             <div class="row">
                 <div class="col">
                     <label for="input_language">Input Language:</label>
                     <select name="input_language" id="input_language" class="form-control">
-                        <option value="auto">Detect automatically</option>
+                
                         {% for lang in languages %}
-                            <option value="{{ lang[0] }}" {% if lang[0] == input_language %}selected{% endif %}>{{ lang[1] }}</option>
+                            <option value="{{ lang[0] }}">{{ lang[1] }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -39,7 +39,7 @@
                     <label for="output_language">Output Language:</label>
                     <select name="output_language" id="output_language" class="form-control">
                         {% for lang in languages %}
-                            <option value="{{ lang[0] }}" {% if lang[0] == output_language %}selected{% endif %}>{{ lang[1] }}</option>
+                            <option value="{{ lang[0] }}">{{ lang[1] }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -47,11 +47,11 @@
             <div class="row">
                 <div class="col">
                     <label for="text">Enter Text:</label>
-                    <textarea name="text" id="text" class="form-control" rows="10">{{ text }}</textarea>
+                    <textarea name="text" id="text" class="form-control" rows="10"></textarea>
                 </div>
                 <div class="col">
                     <label for="translation">Translation:</label>
-                    <textarea name="translation" id="translation" class="form-control" rows="10" readonly>{{ translation }}</textarea>
+                    <textarea name="translation" id="translation" class="form-control" rows="10" readonly></textarea>
                 </div>
             </div>
             <div class="row">
@@ -61,5 +61,23 @@
             </div>
         </form>
     </div>
+
+    <script>
+    document.getElementById('translate-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var form = event.target;
+        var formData = new FormData(form);
+
+        fetch('/translate', {
+            method: 'POST',
+            body: formData
+        }).then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            document.getElementById('translation').value = data.translated_text;
+        });
+    });
+    </script>
 </body>
 </html>
